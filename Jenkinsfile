@@ -22,5 +22,18 @@ pipeline {
       }
     }
 
+    stage('Docker Push') {
+      agent any
+      environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+      }
+      steps {
+        echo 'Iniciando sesión en Docker Hub...'
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        echo 'Subiendo imagen al repositorio remoto...'
+        sh 'docker push julianacasas28/spring-petclinic:latest'
+      }
+    }
+
   }
 }
