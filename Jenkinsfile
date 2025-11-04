@@ -17,6 +17,7 @@ pipeline {
     stage('Docker Build') {
       agent any
       steps {
+        echo 'Construyendo imagen Docker...'
         sh 'docker build -t julianacasas28/spring-petclinic:latest .'
       }
     }
